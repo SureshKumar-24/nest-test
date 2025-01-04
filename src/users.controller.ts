@@ -1,21 +1,7 @@
-import { Body, Controller, Post, Get, Param } from "@nestjs/common";
-import { CreateUserDTO } from "./dto";
-const USERS = [];
+import { Controller } from "@nestjs/common";
+import { UsersStore } from "./users.store";
+
 @Controller("/users")
 export class UsersControllers {
-  @Post()
-  addUser(@Body() createUserDto: CreateUserDTO) {
-    USERS.push(createUserDto);
-    return "User Added Successfully";
-  }
-
-  @Get()
-  getUsers() {
-    return USERS;
-  }
-
-  @Get(":id")
-  getUser(@Param("id") id: number) {
-    return USERS.find((user)=> user.id === +id);
-  }
+  constructor(private store: UsersStore) {}
 }
